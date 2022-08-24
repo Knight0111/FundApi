@@ -5,9 +5,10 @@ import cn.hutool.core.lang.Console;
 import cn.hutool.http.Header;
 import cn.hutool.http.HttpRequest;
 import com.alibaba.fastjson.JSONObject;
-import com.starhouse.bank.guotai.entity.*;
-import com.starhouse.bank.guotai.service.*;
-import com.starhouse.bank.zhongxin.queryFundNetVal.entity.QueryFundNetVal;
+import com.starhouse.bank.moudles.guotai.entity.*;
+import com.starhouse.bank.moudles.guotai.fundNetVal.entity.FundNetVal;
+import com.starhouse.bank.moudles.guotai.fundNetVal.service.FundNetValService;
+import com.starhouse.bank.moudles.guotai.service.*;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -186,7 +187,7 @@ class GuoTaiApplicationTests {
             voList.add(fundNetVal);
         }
         System.out.println(voList.size());
-
+        fundNetValService.saveBatch(voList);
     }
 
     @SneakyThrows

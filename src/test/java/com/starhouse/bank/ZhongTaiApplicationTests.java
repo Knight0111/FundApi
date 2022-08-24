@@ -2,14 +2,12 @@ package com.starhouse.bank;
 
 import cn.hutool.core.lang.Console;
 import cn.hutool.crypto.SecureUtil;
-import cn.hutool.http.Header;
 import cn.hutool.http.HttpRequest;
 import com.alibaba.fastjson.JSONObject;
-import com.starhouse.bank.guotai.entity.FundNetVal;
-import com.starhouse.bank.zhongtai.queryTaInvestor.entity.QueryTaInvestor;
-import com.starhouse.bank.zhongtai.queryTaInvestor.service.QueryTaInvestorService;
-import com.starhouse.bank.zhongtai.queryTaNetValue.entity.QueryTaNetValue;
-import com.starhouse.bank.zhongtai.queryTaNetValue.service.QueryTaNetValueService;
+import com.starhouse.bank.moudles.zhongtai.queryTaInvestor.entity.QueryTaInvestor;
+import com.starhouse.bank.moudles.zhongtai.queryTaInvestor.service.QueryTaInvestorService;
+import com.starhouse.bank.moudles.zhongtai.queryTaNetValue.entity.QueryTaNetValue;
+import com.starhouse.bank.moudles.zhongtai.queryTaNetValue.service.QueryTaNetValueService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +16,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 @SpringBootTest
-class ZhongTaiApplicationTests {
+class ZhongTaiApplicationTests  {
 
     // tgwb.95538.cn
     private final String BaseUrl = "https://tgwb.95538.cn";

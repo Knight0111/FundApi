@@ -2,8 +2,8 @@ package com.starhouse.bank;
 
 import cn.hutool.http.HttpRequest;
 import com.alibaba.fastjson.JSONObject;
-import com.starhouse.bank.yinhe.queryProductNetValue.pageInfo;
-import com.starhouse.bank.yinhe.queryProductNetValue.entity.QueryProductNetValue;
+import com.starhouse.bank.moudles.yinhe.queryProductNetValue.pageInfo;
+import com.starhouse.bank.moudles.yinhe.queryProductNetValue.entity.QueryProductNetValue;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import sun.security.jca.ProviderList;

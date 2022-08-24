@@ -4,8 +4,8 @@ import cn.hutool.core.lang.Console;
 import cn.hutool.http.Header;
 import cn.hutool.http.HttpRequest;
 import com.alibaba.fastjson.JSONObject;
-import com.starhouse.bank.zhongxin.queryFundNetVal.entity.QueryFundNetVal;
-import com.starhouse.bank.zhongxin.queryFundNetVal.service.QueryFundNetValService;
+import com.starhouse.bank.moudles.zhongxin.queryFundNetVal.entity.QueryFundNetVal;
+import com.starhouse.bank.moudles.zhongxin.queryFundNetVal.service.QueryFundNetValService;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,8 +95,8 @@ public class ZhongXinApplicationTests {
     @Test
     public void queryFundNetValForApi(){
         HashMap<String,Object> postDataMap = new HashMap<>();
-        postDataMap.put("netBeginDate","20190101");
-        postDataMap.put("netEndDate","20190910");
+        postDataMap.put("netBeginDate","20220101");
+        postDataMap.put("netEndDate","20220908");
         postDataMap.put("pageSize","100");
         postDataMap.put("pageNum","1");
         List<JSONObject> list = getList("/v1/fa/queryFundNetValForApi", postDataMap);
