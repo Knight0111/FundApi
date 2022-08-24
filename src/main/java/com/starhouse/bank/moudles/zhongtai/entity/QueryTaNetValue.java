@@ -1,4 +1,4 @@
-package com.starhouse.bank.moudles.zhongtai.queryTaNetValue.entity;
+package com.starhouse.bank.moudles.zhongtai.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;

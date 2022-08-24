@@ -1,4 +1,4 @@
-package com.starhouse.bank.moudles.zhongtai.queryTaFundShare.entity;
+package com.starhouse.bank.moudles.zhongtai.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
