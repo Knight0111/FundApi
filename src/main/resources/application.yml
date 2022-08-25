@@ -10,3 +10,12 @@ platform:
     appId: d46c7c8104bc498f9e71bb8e9038ec5e
     appKey: 1c91721427b34407994c84e2a1e51be9
     secretKey: b99b45d5c9ac18780542640019364b5929bc144ffe8e070426b3172ff742188f
+
+  guoxin:
+    baseUrl:
+    manager_id: 5764
+    app_id: lktz
+    sec_key: LKTZGLBJYXGS202204191703sc
+
+  guotai:
+    BaseUrl: https://pb.gtja.com/pbapi/api

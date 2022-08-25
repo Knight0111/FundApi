@@ -1,12 +1,15 @@
 package com.starhouse.bank;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.lang.Console;
 import cn.hutool.http.Header;
 import cn.hutool.http.HttpRequest;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.starhouse.bank.moudles.zhongxin.queryFundNetVal.entity.QueryFundNetVal;
 import com.starhouse.bank.moudles.zhongxin.queryFundNetVal.service.QueryFundNetValService;
 import lombok.SneakyThrows;
+import org.apache.logging.log4j.util.Strings;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +23,7 @@ public class ZhongXinApplicationTests {
 
     private final String BaseUrl = "https://apitest.iservice.citics.com";
     private final String  consumerAuth  = "Zuv9eYzRUg60WmBd";
-    private String  token  = "";
+    private String  token  = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpbnN0SWQiOiIxMzQ3MSIsIm5iZiI6MTY2MTQxODk4NywiY2hhbm5lbCI6ImdhdGV3YXkiLCJjdXN0VHlwZSI6IjIiLCJleHAiOjE2NjE1MDg5ODd9.nb_IfLi8l2TIVJ5nbjQ-uPB7Xls5zQ6j0ewfvHBXjKw";
 
 
     @Autowired
@@ -41,7 +44,7 @@ public class ZhongXinApplicationTests {
 
     @SneakyThrows
     private List<JSONObject> getList(String api, HashMap<String,Object> postDataMap){
-        if (token == null || token.length() == 0){
+        if (Strings.isEmpty(token)){
             getToken();
         }
         List<JSONObject> voList = new ArrayList<>();
@@ -50,6 +53,7 @@ public class ZhongXinApplicationTests {
         if (total == 0 ){
             throw new Exception("当前无数据");
         }
+        Thread.sleep(1000);
         while(!isLastPage){
             String result = HttpRequest.post(BaseUrl + api)
                     .header("Authorization",token)
@@ -60,17 +64,18 @@ public class ZhongXinApplicationTests {
             JSONObject jsonObject  = JSONObject.parseObject(result);
             JSONObject data = jsonObject.getObject("data",JSONObject.class);
             // 获取数据
-            List<JSONObject> list = (List<JSONObject>) data.get("list");
-            for (JSONObject object : list) {
-                voList.add(object);
+            JSONArray jsonArray = data.getJSONArray("list");
+//            List<JSONObject> list = (List<JSONObject>) data.get("list");
+            for (Object object : jsonArray) {
+                voList.add((JSONObject) object);
             }
             // 更新下一页
-            isLastPage = jsonObject.getObject("isLastPage",Boolean.class);
+            isLastPage = data.getObject("isLastPage",Boolean.class);
             if (!isLastPage){
                 String oldPageNum = (String) postDataMap.get("pageNum");
                 postDataMap.put("pageNum",oldPageNum + 1);
             }
-
+            Thread.sleep(1000);
         }
         return voList;
     }
@@ -106,6 +111,10 @@ public class ZhongXinApplicationTests {
             queryFundNetVal.setCompany("中信证券");
             voList.add(queryFundNetVal);
         }
+        for (QueryFundNetVal queryFundNetVal : voList){
+            System.out.println(queryFundNetVal);
+        }
+
 //        queryFundNetValService.saveBatch(voList);
     }
 }

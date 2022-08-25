@@ -30,7 +30,7 @@ import java.util.List;
 class GuoTaiApplicationTests {
     static String  secretKey = "^h$_0j9kwf$y7,@w%;o+f[]-";
     private static final String Algorithm = "DESede";
-    private static final String BaseUrl = "https://pbtest.gtja.com/fsdpl-api/api/";
+    private static final String BaseUrl = "https://pb.gtja.com/pbapi/api/";
 
     @Autowired(required = false)
     private FundNetValService fundNetValService;
@@ -68,11 +68,14 @@ class GuoTaiApplicationTests {
         return null;
     }
 
+
     @SneakyThrows
     public String getData(JSONObject jsonObject,String url){
         String bizParamJson = jsonObject.toJSONString();
-        String appKey = "ngmaSPGtvrDy1JW9EEM8";
-        String managerId = "00000001";
+//        String appKey = "ngmaSPGtvrDy1JW9EEM8";
+        String appKey = "4z76Jq0jxjpnMILnggmN";
+//        String managerId = "00000001";
+        String managerId = "A10013716";
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMddHHmmssSSS");
         String timeStamp = sdf.format(date);
@@ -81,7 +84,8 @@ class GuoTaiApplicationTests {
         System.out.println(bizParam);
         String params ="appkey=" + appKey +"&bizParam=" + bizParam +"&managerId=" + managerId +"&timeStamp=" + timeStamp;
         System.out.println(params);
-        String appsigned = HmacUtil.encrypt(params, "xGqqc0OZhS2bk7fnYHrSaTH5rzu5pU&", HmacUtil.HMAC_SHA512).replace("+","-").replace("=","").replaceAll("/","_");
+        // seckey:xGqqc0OZhS2bk7fnYHrSaTH5rzu5pU&
+        String appsigned = HmacUtil.encrypt(params, "nYaSMvomCGRSagrMAwqulVA86TO6EZ", HmacUtil.HMAC_SHA512).replace("+","-").replace("=","").replaceAll("/","_");
         System.out.println( appsigned);
         byte[] key = "^h$_0j9kwf$y7,@w%;o+f[]-".getBytes(StandardCharsets.UTF_8);
         String bizParamFinal = encryptMode(key,params.getBytes(StandardCharsets.UTF_8));
@@ -174,8 +178,9 @@ class GuoTaiApplicationTests {
     @Test
     void FundNetValData2() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("netDateBegin","20220501");
-        jsonObject.put("netDateEnd","20220601");
+        jsonObject.put("fundCode","SVG124");
+        jsonObject.put("netDateBegin","20220701");
+        jsonObject.put("netDateEnd","20220801");
         jsonObject.put("reqNum",100);
         jsonObject.put("reqPageno",1);
         List<JSONObject> list = getData2(jsonObject, "queryService.fundnetval");
@@ -186,8 +191,11 @@ class GuoTaiApplicationTests {
             fundNetVal.setCompany("国泰君安");
             voList.add(fundNetVal);
         }
+        for (FundNetVal fundNetVal : voList) {
+            System.out.println(fundNetVal);
+        }
         System.out.println(voList.size());
-        fundNetValService.saveBatch(voList);
+//        fundNetValService.saveBatch(voList);
     }
 
     @SneakyThrows

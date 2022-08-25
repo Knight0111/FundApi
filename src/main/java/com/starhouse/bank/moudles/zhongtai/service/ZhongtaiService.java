@@ -109,8 +109,9 @@ public class ZhongtaiService {
         return new PageData(total, list);
     }
 
-    public void queryTaNetValue(String sdate, String edate, Integer rows) {
+    public void queryTaNetValue(String sdate, String edate, String fundname,Integer rows) {
         HashMap<String, Object> map = new HashMap<>();
+        map.put("fundname",fundname);
         map.put("sdate", sdate);
         map.put("edate", edate);
 //        map.put("currentpage", 1);
@@ -126,25 +127,27 @@ public class ZhongtaiService {
         for (QueryTaNetValue queryTaNetValue : voList) {
             System.out.println(queryTaNetValue);
         }
+        queryTaNetValueService.saveBatch(voList);
     }
 
-//    public void queryTaInvestor(){
-//        HashMap<String,Object> map = new HashMap<>();
-//        map.put("sdate","2021-08-10");
-//        map.put("edate","2021-11-13");
-//        map.put("currentpage",1);
-//        map.put("rows",100);
-//        List<JSONObject> list = getList("/custodyMgrService/openApi/queryTaInvestor", map);
-//        System.out.println(list.size());
-//        List<QueryTaInvestor> voList = new ArrayList<>();
-//        for (JSONObject object : list) {
-//            QueryTaInvestor queryTaInvestor = object.toJavaObject(QueryTaInvestor.class);
-//            queryTaInvestor.setCompany("中泰证券");
-//            voList.add(queryTaInvestor);
-//        }
-//        for (QueryTaInvestor queryTaInvestor : voList) {
-//            System.out.println(queryTaInvestor);
-//        }
-//        queryTaInvestorService.saveBatch(voList);
-//    }
+    public void queryTaInvestor(String sdate,String edate,String fundname,Integer rows){
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("fundname",fundname);
+        map.put("sdate",sdate);
+        map.put("edate",edate);
+        map.put("currentpage",1);
+        map.put("rows",rows);
+        List<JSONObject> list = getList("/custodyMgrService/openApi/queryTaInvestor", map);
+        System.out.println(list.size());
+        List<QueryTaInvestor> voList = new ArrayList<>();
+        for (JSONObject object : list) {
+            QueryTaInvestor queryTaInvestor = object.toJavaObject(QueryTaInvestor.class);
+            queryTaInvestor.setCompany("中泰证券");
+            voList.add(queryTaInvestor);
+        }
+        for (QueryTaInvestor queryTaInvestor : voList) {
+            System.out.println(queryTaInvestor);
+        }
+        queryTaInvestorService.saveBatch(voList);
+    }
 }

@@ -19,6 +19,11 @@ class ZhongtaiServiceTest {
 
     @Test
     void queryTaNetValue() {
-        zhongtaiService.queryTaNetValue("2021-08-10", "2021-11-13", 100);
+        zhongtaiService.queryTaNetValue("2022-08-01", "2022-08-25","量客稳健多策略一号私募证券投资基金", 100);
+    }
+
+    @Test
+    void queryTaInvestor(){
+        zhongtaiService.queryTaInvestor("2022-08-01", "2022-08-25","量客稳健多策略一号私募证券投资基金", 100);
     }
 }
