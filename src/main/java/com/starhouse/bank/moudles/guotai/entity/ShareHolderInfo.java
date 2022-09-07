@@ -1,5 +1,6 @@
 package com.starhouse.bank.moudles.guotai.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 @Data
@@ -26,6 +27,7 @@ public class ShareHolderInfo {
     private String frozenShares;
     private String enableShares;
     private String lastBalance;
+    @TableField("net_vdate")
     private String busiDate;
     private String income;
     private String frozenIncome;

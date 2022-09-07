@@ -5,9 +5,7 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.http.HttpRequest;
 import com.alibaba.fastjson.JSONObject;
 import com.starhouse.bank.config.ZhongtaiPlatformConfig;
-import com.starhouse.bank.moudles.zhongtai.entity.PageData;
-import com.starhouse.bank.moudles.zhongtai.entity.QueryTaInvestor;
-import com.starhouse.bank.moudles.zhongtai.entity.QueryTaNetValue;
+import com.starhouse.bank.moudles.zhongtai.entity.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +16,20 @@ import java.util.*;
 
 @Slf4j
 @Service
-public class ZhongtaiService {
+public class ZhongTaiService {
     @Autowired
     private QueryTaInvestorService queryTaInvestorService;
     @Autowired
     private QueryTaNetValueService queryTaNetValueService;
+    @Autowired
+    private QueryTaDataConfirmService queryTaDataConfirmService;
+    @Autowired
+    private QueryInvestorShareService queryInvestorShareService;
+    @Autowired
+    private QueryTaFundDividendsService queryTaFundDividendsService;
+    @Autowired
+    private QueryTaProfitService queryTaProfitService;
+
 
     @Autowired
     private ZhongtaiPlatformConfig zhongtaiPlatformConfig;
@@ -109,11 +116,11 @@ public class ZhongtaiService {
         return new PageData(total, list);
     }
 
-    public void queryTaNetValue(String sdate, String edate, String fundname,Integer rows) {
+    public void queryTaNetValue( String fundname,Integer rows) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("fundname",fundname);
-        map.put("sdate", sdate);
-        map.put("edate", edate);
+//        map.put("sdate", sdate);
+//        map.put("edate", edate);
 //        map.put("currentpage", 1);
         map.put("rows", rows);
         List<JSONObject> list = getList("/custodyMgrService/openApi/queryTaNetValue", map);
@@ -130,11 +137,11 @@ public class ZhongtaiService {
         queryTaNetValueService.saveBatch(voList);
     }
 
-    public void queryTaInvestor(String sdate,String edate,String fundname,Integer rows){
+    public void queryTaInvestor(String fundname,Integer rows){
         HashMap<String,Object> map = new HashMap<>();
         map.put("fundname",fundname);
-        map.put("sdate",sdate);
-        map.put("edate",edate);
+//        map.put("sdate",sdate);
+//        map.put("edate",edate);
         map.put("currentpage",1);
         map.put("rows",rows);
         List<JSONObject> list = getList("/custodyMgrService/openApi/queryTaInvestor", map);
@@ -150,4 +157,105 @@ public class ZhongtaiService {
         }
         queryTaInvestorService.saveBatch(voList);
     }
+
+
+//    String version = "V1.0";
+    public void queryTaDataConfirm(String fundname,Integer rows){
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("access_token",token);
+        map.put("version","V1.0");
+//        map.put("fundcode","");
+        map.put("fundname",fundname);
+//        map.put("identityno","");
+//        map.put("businame","");
+//        map.put("sdate",sdate);
+//        map.put("edate",edate);
+//        map.put("scdate",scdate);
+//        map.put("ecdate",ecdate);
+        map.put("currentpage",1);
+        map.put("rows",rows);
+        List<JSONObject> list = getList("/custodyMgrService/openApi/queryTaDataConfirm", map);
+        System.out.println(list.size());
+        List<QueryTaDataConfirm> voList = new ArrayList<>();
+        for (JSONObject object : list) {
+            QueryTaDataConfirm queryTaDataConfirm = object.toJavaObject(QueryTaDataConfirm.class);
+            queryTaDataConfirm.setCompany("中泰证券");
+            voList.add(queryTaDataConfirm);
+        }
+        for (QueryTaDataConfirm queryTaDataConfirm : voList) {
+            System.out.println(queryTaDataConfirm);
+        }
+        queryTaDataConfirmService.saveBatch(voList);
+    }
+
+    public void queryInvestorShare(String fundname,Integer rows) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("fundname",fundname);
+//        map.put("sdate", sdate);
+//        map.put("edate", edate);
+        map.put("currentpage", 1);
+        map.put("rows", rows);
+        List<JSONObject> list = getList("/custodyMgrService/openApi/queryInvestorShare", map);
+        System.out.println(list.size());
+        List<QueryInvestorShare> voList = new ArrayList<>();
+        for (JSONObject object : list) {
+            QueryInvestorShare queryInvestorShare = object.toJavaObject(QueryInvestorShare.class);
+            queryInvestorShare.setCompany("中泰证券");
+            voList.add(queryInvestorShare);
+        }
+        for (QueryInvestorShare queryInvestorShare : voList) {
+            System.out.println(queryInvestorShare);
+        }
+        queryInvestorShareService.saveBatch(voList);
+    }
+
+    public void queryTaFundDividends(Integer rows) {
+        HashMap<String, Object> map = new HashMap<>();
+//        map.put("fundname",fundname);
+//        map.put("sdate", sdate);
+//        map.put("edate", edate);
+        map.put("currentpage", 1);
+        map.put("rows", rows);
+        List<JSONObject> list = getList("/custodyMgrService/openApi/queryTaFundDividends", map);
+        System.out.println(list.size());
+        List<QueryTaFundDividends> voList = new ArrayList<>();
+        for (JSONObject object : list) {
+            QueryTaFundDividends queryTaFundDividends = object.toJavaObject(QueryTaFundDividends.class);
+            queryTaFundDividends.setCompany("中泰证券");
+            voList.add(queryTaFundDividends);
+        }
+        for (QueryTaFundDividends queryTaFundDividends : voList) {
+            System.out.println(queryTaFundDividends);
+        }
+//        queryTaFundDividendsService.saveBatch(voList);
+    }
+
+    public void queryTaProfit(String fundname,Integer rows){
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("access_token",token);
+        map.put("version","V1.0");
+//        map.put("fundcode","");
+        map.put("fundname",fundname);
+//        map.put("identityno","");
+//        map.put("businame","");
+//        map.put("sdate",sdate);
+//        map.put("edate",edate);
+//        map.put("scdate",scdate);
+//        map.put("ecdate",ecdate);
+        map.put("currentpage",1);
+        map.put("rows",rows);
+        List<JSONObject> list = getList("/custodyMgrService/openApi/queryTaProfit", map);
+        System.out.println(list.size());
+        List<QueryTaProfit> voList = new ArrayList<>();
+        for (JSONObject object : list) {
+            QueryTaProfit queryTaProfit = object.toJavaObject(QueryTaProfit.class);
+            queryTaProfit.setCompany("中泰证券");
+            voList.add(queryTaProfit);
+        }
+        for (QueryTaProfit queryTaProfit : voList) {
+            System.out.println(queryTaProfit);
+        }
+        queryTaProfitService.saveBatch(voList);
+    }
+
 }

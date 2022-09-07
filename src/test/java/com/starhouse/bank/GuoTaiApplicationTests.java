@@ -111,8 +111,8 @@ class GuoTaiApplicationTests {
     @SneakyThrows
     public String getRequestData(JSONObject jsonObject,String url){
         String bizParamJson = jsonObject.toJSONString();
-        String appKey = "ngmaSPGtvrDy1JW9EEM8";
-        String managerId = "00000001";
+        String appKey = "4z76Jq0jxjpnMILnggmN";
+        String managerId = "A10013716";
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMddHHmmssSSS");
         String timeStamp = sdf.format(date);
@@ -120,7 +120,7 @@ class GuoTaiApplicationTests {
         String bizParam = URLEncoder.encode(bizParamJson,"UTF-8");
         String params ="appkey=" + appKey +"&bizParam=" + bizParam +"&managerId=" + managerId +"&timeStamp=" + timeStamp;
         // System.out.println(params);
-        String appsigned = HmacUtil.encrypt(params, "xGqqc0OZhS2bk7fnYHrSaTH5rzu5pU&", HmacUtil.HMAC_SHA512).replace("+","-").replace("=","").replaceAll("/","_");
+        String appsigned = HmacUtil.encrypt(params, "nYaSMvomCGRSagrMAwqulVA86TO6EZ", HmacUtil.HMAC_SHA512).replace("+","-").replace("=","").replaceAll("/","_");
         // System.out.println( appsigned);
         byte[] key = "^h$_0j9kwf$y7,@w%;o+f[]-".getBytes(StandardCharsets.UTF_8);
         String bizParamFinal = encryptMode(key,params.getBytes(StandardCharsets.UTF_8));

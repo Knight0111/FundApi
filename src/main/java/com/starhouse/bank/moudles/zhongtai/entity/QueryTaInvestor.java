@@ -24,21 +24,27 @@ public class QueryTaInvestor {
 
     @TableField(exist = false)
     private String opendate;
+
     @TableField(exist = false)
     private String fundcode;
+
     @TableField(exist = false)
     private String fundname;
+
     @TableField(exist = false)
     private String mobileno;
-    @TableField(exist = false)
+
+    @TableField("email")
     private String email;
-    @TableField(exist = false)
+
+    @TableField("address")
     private String address;
+
     @TableField(exist = false)
     private String lastmodify;
+
     @TableField(exist = false)
     private String rows;
-
 
     private String company;
 

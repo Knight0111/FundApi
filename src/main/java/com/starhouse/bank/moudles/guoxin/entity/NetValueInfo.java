@@ -3,7 +3,7 @@ package com.starhouse.bank.moudles.guoxin.entity;
 import lombok.Data;
 
 @Data
-public class NetValInfo {
+public class NetValueInfo {
     private String fundName;
     private String fundCode;
     private String managerName;
@@ -14,5 +14,6 @@ public class NetValInfo {
     private String totalNetValue;
     private String fundAssets;
     private String fundShares;
+    private String company;
 
 }

@@ -4,12 +4,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 class ZhongtaiServiceTest {
     @Autowired
-    private ZhongtaiService zhongtaiService;
+    private ZhongTaiService zhongtaiService;
 
     @Test
     void getToken() {
@@ -17,13 +15,35 @@ class ZhongtaiServiceTest {
         System.out.println(token);
     }
 
+
     @Test
-    void queryTaNetValue() {
-        zhongtaiService.queryTaNetValue("2022-08-01", "2022-08-25","量客稳健多策略一号私募证券投资基金", 100);
-    }
+    void queryTaNetValue() { zhongtaiService.queryTaNetValue("量客鼎安稳健一号私募证券投资基金", 100); }
 
     @Test
     void queryTaInvestor(){
-        zhongtaiService.queryTaInvestor("2022-08-01", "2022-08-25","量客稳健多策略一号私募证券投资基金", 100);
+        zhongtaiService.queryTaInvestor("量客稳健多策略一号私募证券投资基金", 100);
+    }
+
+
+    @Test
+    void queryTaConfirm(){
+        zhongtaiService.queryTaDataConfirm("量客稳健多策略一号私募证券投资基金",100);
+    }
+
+
+    @Test
+    void queryInvestorShare(){
+        zhongtaiService.queryInvestorShare("量客稳健多策略一号私募证券投资基金",100);
+    }
+
+
+    @Test
+    void queryTaFundDividends(){
+        zhongtaiService.queryTaFundDividends(100);
+    }
+
+    @Test
+    void queryTaProfit(){
+        zhongtaiService.queryTaProfit("量客稳健多策略一号私募证券投资基金",100);
     }
 }
